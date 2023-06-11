@@ -45,7 +45,7 @@ public class ServerControl {
 		List<AsignacionMaquina> asmL = md.listaAsignaciones(codigooperador);
 
 		for (AsignacionMaquina asm : asmL) {
-			int idMaq = asm.getMaquina().peticioncodigo();
+			int idMaq = asm.getMaquina().getId();
 			String ubicacion = asm.getMaquina().getUbicacion();
 
 			String dato = "" + idMaq + "-" + ubicacion;

@@ -1,35 +1,17 @@
 package modelo;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AsignacionMaquina {
 
 	private Maquina maquina;
 	private Operador operador;
-		
-	public AsignacionMaquina() {
-		super();
-	}
-
-	public AsignacionMaquina(Maquina maquina, Operador operador) {
-		super();
-		this.maquina = maquina;
-		this.operador = operador;
-	}
-
-	public Maquina getMaquina() {
-		return maquina;
-	}
-
-	public void setMaquina(Maquina maquina) {
-		this.maquina = maquina;
-	}
-
-	public Operador getOperador() {
-		return operador;
-	}
-
-	public void setOperador(Operador operador) {
-		this.operador = operador;
-	}
-	
-	
+			
 }

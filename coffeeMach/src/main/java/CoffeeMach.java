@@ -1,6 +1,7 @@
 import com.zeroc.Ice.*;
 
 import McControlador.ControladorMQ;
+import gateway.Gateway;
 
 import java.util.*;
 import servicios.*;
@@ -19,9 +20,7 @@ public class CoffeeMach {
 
       ObjectAdapter adapter = communicator.createObjectAdapter("CoffeMach");
       ControladorMQ service = new ControladorMQ();
-      service.setAlarmaService(alarmaS);
-      service.setVentas(ventas);
-      service.setRecetaServicePrx(recetaServicePrx);
+      service.setGateway(new Gateway(alarmaS, ventas, recetaServicePrx));
 
       service.run();
       adapter.add((ServicioAbastecimiento) service, Util.stringToIdentity("abastecer"));
