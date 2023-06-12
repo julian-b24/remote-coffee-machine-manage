@@ -1,7 +1,6 @@
 package ServerControl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import com.zeroc.Ice.Communicator;
 
@@ -45,7 +44,7 @@ public class ServerControl {
 		List<AsignacionMaquina> asmL = md.listaAsignaciones(codigooperador);
 
 		for (AsignacionMaquina asm : asmL) {
-			int idMaq = asm.getMaquina().peticioncodigo();
+			int idMaq = asm.getMaquina().getId();
 			String ubicacion = asm.getMaquina().getUbicacion();
 
 			String dato = "" + idMaq + "-" + ubicacion;
