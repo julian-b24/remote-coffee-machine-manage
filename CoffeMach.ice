@@ -52,4 +52,10 @@ module servicios{
 	    string registrarIngrediente(string nombre);
     }
 
+
+    //Reliable Message interface
+    interface ReliableMessageService{
+      void sendACK(string uuidAlarma);
+    }
+
 }

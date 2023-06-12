@@ -12,3 +12,5 @@ include 'ServidorCentral'
 include 'coffeeMach'
 // include 'cmLogistics'
 // include 'bodegaCentral'
+
+include 'ReliableMessage'
