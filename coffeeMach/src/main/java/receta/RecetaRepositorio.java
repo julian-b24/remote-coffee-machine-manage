@@ -1,4 +1,4 @@
-package productoReceta;
+package receta;
 
 import java.util.*;
 

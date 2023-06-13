@@ -17,7 +17,7 @@ package servicios;
 
 public interface SubscriberService extends com.zeroc.Ice.Object
 {
-    void _notify(com.zeroc.Ice.Current current);
+    void notifySub(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -50,11 +50,11 @@ public interface SubscriberService extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_notify(SubscriberService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_notifySub(SubscriberService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        obj._notify(current);
+        obj.notifySub(current);
         return inS.setResult(inS.writeEmptyParams());
     }
 
@@ -65,7 +65,7 @@ public interface SubscriberService extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "notify"
+        "notifySub"
     };
 
     /** @hidden */
@@ -99,7 +99,7 @@ public interface SubscriberService extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return _iceD_notify(this, in, current);
+                return _iceD_notifySub(this, in, current);
             }
         }
 

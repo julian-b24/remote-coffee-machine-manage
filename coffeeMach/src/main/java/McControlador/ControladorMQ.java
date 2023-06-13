@@ -3,8 +3,8 @@ package McControlador;
 import servicios.*;
 import monedero.DepositoMonedas;
 import monedero.MonedasRepositorio;
-import productoReceta.Receta;
-import productoReceta.RecetaRepositorio;
+import receta.Receta;
+import receta.RecetaRepositorio;
 
 import java.util.*;
 import java.io.*;

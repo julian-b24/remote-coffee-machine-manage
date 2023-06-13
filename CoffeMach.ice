@@ -7,6 +7,12 @@ module servicios{
     ["java:serializable:java.util.Date"]
     sequence<byte> Date;
 
+    ["java:serializable:receta.Receta"]
+    sequence<byte> Receta;
+
+    ["java:serializable:ingrediente.Ingrediente"]
+    sequence<byte> Ingrediente;
+
     dictionary<string,int> MapStrInt;
 
 
@@ -65,13 +71,13 @@ module servicios{
 
     //Publisher-Subscriber interfaces
     interface SubscriberService{
-      void notify();
+      void notifySub();
     }
 
     interface PublisherService{
       void attach(SubscriberService* subscriberProxy);
-      void reportChange();
-      void getUpdate();
+      void reportChange(Receta receta);
+      Receta getUpdate();
     }
 
 }

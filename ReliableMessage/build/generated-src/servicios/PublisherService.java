@@ -19,9 +19,9 @@ public interface PublisherService extends com.zeroc.Ice.Object
 {
     void attach(SubscriberServicePrx subscriberProxy, com.zeroc.Ice.Current current);
 
-    void reportChange(com.zeroc.Ice.Current current);
+    void reportChange(receta.Receta receta, com.zeroc.Ice.Current current);
 
-    void getUpdate(com.zeroc.Ice.Current current);
+    receta.Receta getUpdate(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -75,8 +75,11 @@ public interface PublisherService extends com.zeroc.Ice.Object
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_reportChange(PublisherService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        obj.reportChange(current);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        receta.Receta iceP_receta;
+        iceP_receta = istr.readSerializable(receta.Receta.class);
+        inS.endReadParams();
+        obj.reportChange(iceP_receta, current);
         return inS.setResult(inS.writeEmptyParams());
     }
 
@@ -91,8 +94,11 @@ public interface PublisherService extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        obj.getUpdate(current);
-        return inS.setResult(inS.writeEmptyParams());
+        receta.Receta ret = obj.getUpdate(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeSerializable(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /** @hidden */

@@ -17,24 +17,24 @@ package servicios;
 
 public interface SubscriberServicePrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void _notify()
+    default void notifySub()
     {
-        _notify(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        notifySub(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void _notify(java.util.Map<String, String> context)
+    default void notifySub(java.util.Map<String, String> context)
     {
-        _iceI_notifyAsync(context, true).waitForResponse();
+        _iceI_notifySubAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> notifyAsync()
+    default java.util.concurrent.CompletableFuture<Void> notifySubAsync()
     {
-        return _iceI_notifyAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_notifySubAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> notifyAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> notifySubAsync(java.util.Map<String, String> context)
     {
-        return _iceI_notifyAsync(context, false);
+        return _iceI_notifySubAsync(context, false);
     }
 
     /**
@@ -43,9 +43,9 @@ public interface SubscriberServicePrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_notifyAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_notifySubAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "notify", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "notifySub", null, sync, null);
         f.invoke(false, context, null, null, null);
         return f;
     }
