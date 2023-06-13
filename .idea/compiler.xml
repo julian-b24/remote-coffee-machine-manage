@@ -10,6 +10,7 @@
         <module name="coffemach.ReliableMessage.main" />
         <module name="coffemach.ServidorCentral.main" />
         <module name="coffemach.coffeeMach.main" />
+        <module name="coffemach.Publisher.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />

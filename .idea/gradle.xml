@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Publisher" />
             <option value="$PROJECT_DIR$/ReliableMessage" />
             <option value="$PROJECT_DIR$/ServidorCentral" />
             <option value="$PROJECT_DIR$/coffeeMach" />

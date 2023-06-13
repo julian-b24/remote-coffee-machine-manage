@@ -23,12 +23,12 @@ public class Alarma implements AlarmaService {
     }
 
     @Override
-    public void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, Current current) {
+    public void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, String uuidACK, Current current) {
         manager.alarmaMaquina(ALARMA_INGREDIENTE, idMaq, new Date());
     }
 
     @Override
-    public void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, Current current) {
+    public void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, String uuidACK, Current current) {
         switch (moneda) {
             case CIEN:
                 manager.alarmaMaquina(ALARMA_MONEDA_CIEN, idMaq, new Date());
@@ -45,19 +45,19 @@ public class Alarma implements AlarmaService {
     }
 
     @Override
-    public void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, Current current) {
+    public void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, String uuidACK, Current current) {
         // suministro
         manager.alarmaMaquina(ALARMA_SUMINISTRO, idMaq, new Date());
     }
 
     @Override
-    public void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, Current current) {
+    public void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, String uuidACK, Current current) {
         // TODO validar el insumo
         manager.desactivarAlarma(ALARMA_INGREDIENTE, idMaq, new Date());
     }
 
     @Override
-    public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, Current current) {
+    public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, String uuidACK, Current current) {
         manager.alarmaMaquina(ALARMA_MAL_FUNCIONAMIENTO, idMaq, new Date());
     }
 

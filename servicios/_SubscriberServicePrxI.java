@@ -16,7 +16,7 @@
 package servicios;
 
 /** @hidden */
-public class _ReliableMessageServicePrxI extends com.zeroc.Ice._ObjectPrxI implements ReliableMessageServicePrx
+public class _SubscriberServicePrxI extends com.zeroc.Ice._ObjectPrxI implements SubscriberServicePrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

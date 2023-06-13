@@ -17,138 +17,144 @@ package servicios;
 
 public interface AlarmaServicePrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void recibirNotificacionEscasezIngredientes(String iDing, int idMaq)
+    default void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, String uuidACK)
     {
-        recibirNotificacionEscasezIngredientes(iDing, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        recibirNotificacionEscasezIngredientes(iDing, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, java.util.Map<String, String> context)
+    default void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, context, true).waitForResponse();
+        _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, uuidACK, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezIngredientesAsync(String iDing, int idMaq)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezIngredientesAsync(String iDing, int idMaq, String uuidACK)
     {
-        return _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezIngredientesAsync(String iDing, int idMaq, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezIngredientesAsync(String iDing, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        return _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, context, false);
+        return _iceI_recibirNotificacionEscasezIngredientesAsync(iDing, idMaq, uuidACK, context, false);
     }
 
     /**
      * @hidden
      * @param iceP_iDing -
      * @param iceP_idMaq -
+     * @param iceP_uuidACK -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionEscasezIngredientesAsync(String iceP_iDing, int iceP_idMaq, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionEscasezIngredientesAsync(String iceP_iDing, int iceP_idMaq, String iceP_uuidACK, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recibirNotificacionEscasezIngredientes", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeString(iceP_iDing);
                      ostr.writeInt(iceP_idMaq);
+                     ostr.writeString(iceP_uuidACK);
                  }, null);
         return f;
     }
 
-    default void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq)
+    default void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, String uuidACK)
     {
-        recibirNotificacionInsuficienciaMoneda(moneda, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        recibirNotificacionInsuficienciaMoneda(moneda, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, java.util.Map<String, String> context)
+    default void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, context, true).waitForResponse();
+        _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, uuidACK, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionInsuficienciaMonedaAsync(Moneda moneda, int idMaq)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionInsuficienciaMonedaAsync(Moneda moneda, int idMaq, String uuidACK)
     {
-        return _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionInsuficienciaMonedaAsync(Moneda moneda, int idMaq, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionInsuficienciaMonedaAsync(Moneda moneda, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        return _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, context, false);
+        return _iceI_recibirNotificacionInsuficienciaMonedaAsync(moneda, idMaq, uuidACK, context, false);
     }
 
     /**
      * @hidden
      * @param iceP_moneda -
      * @param iceP_idMaq -
+     * @param iceP_uuidACK -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionInsuficienciaMonedaAsync(Moneda iceP_moneda, int iceP_idMaq, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionInsuficienciaMonedaAsync(Moneda iceP_moneda, int iceP_idMaq, String iceP_uuidACK, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recibirNotificacionInsuficienciaMoneda", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      Moneda.ice_write(ostr, iceP_moneda);
                      ostr.writeInt(iceP_idMaq);
+                     ostr.writeString(iceP_uuidACK);
                  }, null);
         return f;
     }
 
-    default void recibirNotificacionEscasezSuministro(String idSumin, int idMaq)
+    default void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, String uuidACK)
     {
-        recibirNotificacionEscasezSuministro(idSumin, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        recibirNotificacionEscasezSuministro(idSumin, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, java.util.Map<String, String> context)
+    default void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, context, true).waitForResponse();
+        _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, uuidACK, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezSuministroAsync(String idSumin, int idMaq)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezSuministroAsync(String idSumin, int idMaq, String uuidACK)
     {
-        return _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezSuministroAsync(String idSumin, int idMaq, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionEscasezSuministroAsync(String idSumin, int idMaq, String uuidACK, java.util.Map<String, String> context)
     {
-        return _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, context, false);
+        return _iceI_recibirNotificacionEscasezSuministroAsync(idSumin, idMaq, uuidACK, context, false);
     }
 
     /**
      * @hidden
      * @param iceP_idSumin -
      * @param iceP_idMaq -
+     * @param iceP_uuidACK -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionEscasezSuministroAsync(String iceP_idSumin, int iceP_idMaq, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionEscasezSuministroAsync(String iceP_idSumin, int iceP_idMaq, String iceP_uuidACK, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recibirNotificacionEscasezSuministro", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeString(iceP_idSumin);
                      ostr.writeInt(iceP_idMaq);
+                     ostr.writeString(iceP_uuidACK);
                  }, null);
         return f;
     }
 
-    default void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad)
+    default void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, String uuidACK)
     {
-        recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, java.util.Map<String, String> context)
+    default void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, String uuidACK, java.util.Map<String, String> context)
     {
-        _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, context, true).waitForResponse();
+        _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, uuidACK, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionAbastesimientoAsync(int idMaq, String idInsumo, int cantidad)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionAbastesimientoAsync(int idMaq, String idInsumo, int cantidad, String uuidACK)
     {
-        return _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionAbastesimientoAsync(int idMaq, String idInsumo, int cantidad, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionAbastesimientoAsync(int idMaq, String idInsumo, int cantidad, String uuidACK, java.util.Map<String, String> context)
     {
-        return _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, context, false);
+        return _iceI_recibirNotificacionAbastesimientoAsync(idMaq, idInsumo, cantidad, uuidACK, context, false);
     }
 
     /**
@@ -156,55 +162,59 @@ public interface AlarmaServicePrx extends com.zeroc.Ice.ObjectPrx
      * @param iceP_idMaq -
      * @param iceP_idInsumo -
      * @param iceP_cantidad -
+     * @param iceP_uuidACK -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionAbastesimientoAsync(int iceP_idMaq, String iceP_idInsumo, int iceP_cantidad, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionAbastesimientoAsync(int iceP_idMaq, String iceP_idInsumo, int iceP_cantidad, String iceP_uuidACK, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recibirNotificacionAbastesimiento", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeInt(iceP_idMaq);
                      ostr.writeString(iceP_idInsumo);
                      ostr.writeInt(iceP_cantidad);
+                     ostr.writeString(iceP_uuidACK);
                  }, null);
         return f;
     }
 
-    default void recibirNotificacionMalFuncionamiento(int idMaq, String descri)
+    default void recibirNotificacionMalFuncionamiento(int idMaq, String descri, String uuidACK)
     {
-        recibirNotificacionMalFuncionamiento(idMaq, descri, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        recibirNotificacionMalFuncionamiento(idMaq, descri, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void recibirNotificacionMalFuncionamiento(int idMaq, String descri, java.util.Map<String, String> context)
+    default void recibirNotificacionMalFuncionamiento(int idMaq, String descri, String uuidACK, java.util.Map<String, String> context)
     {
-        _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, context, true).waitForResponse();
+        _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, uuidACK, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionMalFuncionamientoAsync(int idMaq, String descri)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionMalFuncionamientoAsync(int idMaq, String descri, String uuidACK)
     {
-        return _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, uuidACK, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionMalFuncionamientoAsync(int idMaq, String descri, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> recibirNotificacionMalFuncionamientoAsync(int idMaq, String descri, String uuidACK, java.util.Map<String, String> context)
     {
-        return _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, context, false);
+        return _iceI_recibirNotificacionMalFuncionamientoAsync(idMaq, descri, uuidACK, context, false);
     }
 
     /**
      * @hidden
      * @param iceP_idMaq -
      * @param iceP_descri -
+     * @param iceP_uuidACK -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionMalFuncionamientoAsync(int iceP_idMaq, String iceP_descri, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_recibirNotificacionMalFuncionamientoAsync(int iceP_idMaq, String iceP_descri, String iceP_uuidACK, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "recibirNotificacionMalFuncionamiento", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeInt(iceP_idMaq);
                      ostr.writeString(iceP_descri);
+                     ostr.writeString(iceP_uuidACK);
                  }, null);
         return f;
     }

@@ -15,15 +15,15 @@
 
 package servicios;
 
-public interface ReliableMessageService extends com.zeroc.Ice.Object
+public interface SubscriberService extends com.zeroc.Ice.Object
 {
-    void sendACK(String uuidAlarma, com.zeroc.Ice.Current current);
+    void _notify(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
     {
         "::Ice::Object",
-        "::servicios::ReliableMessageService"
+        "::servicios::SubscriberService"
     };
 
     @Override
@@ -40,7 +40,7 @@ public interface ReliableMessageService extends com.zeroc.Ice.Object
 
     static String ice_staticId()
     {
-        return "::servicios::ReliableMessageService";
+        return "::servicios::SubscriberService";
     }
 
     /**
@@ -50,14 +50,11 @@ public interface ReliableMessageService extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_sendACK(ReliableMessageService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_notify(SubscriberService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_uuidAlarma;
-        iceP_uuidAlarma = istr.readString();
-        inS.endReadParams();
-        obj.sendACK(iceP_uuidAlarma, current);
+        inS.readEmptyParams();
+        obj._notify(current);
         return inS.setResult(inS.writeEmptyParams());
     }
 
@@ -68,7 +65,7 @@ public interface ReliableMessageService extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "sendACK"
+        "notify"
     };
 
     /** @hidden */
@@ -102,7 +99,7 @@ public interface ReliableMessageService extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return _iceD_sendACK(this, in, current);
+                return _iceD_notify(this, in, current);
             }
         }
 
