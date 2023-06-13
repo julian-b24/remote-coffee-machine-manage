@@ -16,6 +16,7 @@ public class ReliableMessage {
             ObjectAdapter adapter = communicator.createObjectAdapter("ReliableMessage");
             ReliableMessageAlarmaController service = new ReliableMessageAlarmaController();
             service.setAlarmaService(alarmaS);
+            service.run();
 
             adapter.activate();
             communicator.waitForShutdown();

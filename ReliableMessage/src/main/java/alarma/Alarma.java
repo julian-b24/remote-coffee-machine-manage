@@ -20,6 +20,7 @@ public class Alarma {
     public static final int ALARMA_MONEDA_QUI = 4;
     public static final int ALARMA_SUMINISTRO = 5;
     public static final int ALARMA_MAL_FUNCIONAMIENTO = 6;
+    public static final int ALARMA_NOTIFICACION_ABASTECIMIENTO = 7;
 
     private int tipo;
     private int idMaquina;

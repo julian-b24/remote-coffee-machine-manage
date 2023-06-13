@@ -1,8 +1,11 @@
 package alarma;
 
+import lombok.Getter;
+
 import java.util.Map;
 import java.util.UUID;
 
+@Getter
 public class AlarmaStorage {
 
     private Map<UUID, Alarma> storage;
