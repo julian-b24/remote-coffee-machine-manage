@@ -16,7 +16,7 @@
 package servicios;
 
 /** @hidden */
-public class _VentaServicePrxI extends com.zeroc.Ice._ObjectPrxI implements VentaServicePrx
+public class _BrokerServicePrxI extends com.zeroc.Ice._ObjectPrxI implements BrokerServicePrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;
