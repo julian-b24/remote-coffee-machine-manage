@@ -13,9 +13,11 @@ public class ReliableMessage {
 
             AlarmaServicePrx alarmaS = AlarmaServicePrx.checkedCast(communicator.propertyToProxy("alarmas")).ice_twoway();
 
-            ObjectAdapter adapter = communicator.createObjectAdapter("ReliableMessage");
+            ObjectAdapter adapter = communicator.createObjectAdapter("ReliableMessageAlarmas");
             ReliableMessageAlarmaController service = new ReliableMessageAlarmaController();
             service.setAlarmaService(alarmaS);
+
+            adapter.add(service, Util.stringToIdentity("ReliableMessageAlarmas"));
             service.run();
 
             adapter.activate();

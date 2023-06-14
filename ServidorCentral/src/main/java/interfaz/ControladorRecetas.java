@@ -45,6 +45,8 @@ public class ControladorRecetas implements Runnable {
 	}
 
 	public void actualizarVista() {
+		Thread syso = new Thread(() -> System.out.println("Actualizando vista"));
+		syso.start();
 
 		iR.getTextAreaRecetas().setText("");
 		iR.getTextAreaIngredientes().setText("");
@@ -84,8 +86,10 @@ public class ControladorRecetas implements Runnable {
 							null);
 
 					listaReceta.add(listadoRec);
-
+					System.out.println("Agregado");
 					actualizarVista();
+					System.out.println("Receta registrada en UI");
+
 				}
 
 				iR.getTextFieldNombreRec().setText("");

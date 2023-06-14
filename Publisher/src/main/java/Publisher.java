@@ -11,11 +11,12 @@ public class Publisher {
 
         try (Communicator communicator = Util.initialize(args, "Publisher.cfg", extPar)) {
 
-            ObjectAdapter adapter = communicator.createObjectAdapter("ReliableMessage");
-            PublisherController service = new PublisherController();
-            //service.setAlarmaService(alarmaS);
+            ObjectAdapter adapter = communicator.createObjectAdapter("Publisher");
+            PublisherController service = new PublisherController(new ArrayList<>());
 
+            adapter.add(service, Util.stringToIdentity("Publisher"));
             adapter.activate();
+            System.out.println("Publisher up");
             communicator.waitForShutdown();
         }
     }

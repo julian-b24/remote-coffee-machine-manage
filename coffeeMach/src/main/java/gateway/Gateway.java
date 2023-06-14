@@ -1,31 +1,30 @@
 package gateway;
 
 import lombok.AllArgsConstructor;
-import servicios.AlarmaServicePrx;
-import servicios.Moneda;
-import servicios.RecetaServicePrx;
-import servicios.VentaServicePrx;
+import servicios.*;
 
 @AllArgsConstructor
 public class Gateway {
-    private AlarmaServicePrx alarmaServicePrx;
+    private ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx;
     private VentaServicePrx ventaServicePrx;
     private RecetaServicePrx recetaServicePrx;
+    private PublisherServicePrx publisherServicePrx;
+    private SubscriberServicePrx subscriberServicePrx;
 
     public void enviarNotificacionAbastecimiento(int codMaquina, String idAlarma, int cantidad) {
-        alarmaServicePrx.recibirNotificacionAbastesimiento(codMaquina, idAlarma, cantidad);
+        reliableMessageAlarmaServicePrx.recibirNotificacionAbastesimiento(codMaquina, idAlarma, cantidad);
     }
 
     public void enviarNotificacionMalFuncionamiento(int codMaquina, String desc) {
-        alarmaServicePrx.recibirNotificacionMalFuncionamiento(codMaquina, desc);
+        reliableMessageAlarmaServicePrx.recibirNotificacionMalFuncionamiento(codMaquina, desc);
     }
     
     public void enviarNotificacionEscasezIngredientes(String ingNombre, int codMaquina) {
-        alarmaServicePrx.recibirNotificacionEscasezIngredientes(ingNombre, codMaquina);
+        reliableMessageAlarmaServicePrx.recibirNotificacionEscasezIngredientes(ingNombre, codMaquina);
     }
 
     public void enviarNotificacionInsuficienciaMoneda(Moneda moneda, int codMaquina) {
-        alarmaServicePrx.recibirNotificacionInsuficienciaMoneda(moneda, codMaquina);
+        reliableMessageAlarmaServicePrx.recibirNotificacionInsuficienciaMoneda(moneda, codMaquina);
     }
 
     public void registrarVenta(int codMaquina, String[] arregloVentas) {
@@ -34,5 +33,9 @@ public class Gateway {
 
     public String[] consultarProductos() {
         return recetaServicePrx.consultarProductos();
+    }
+
+    public void attachPublisher(){
+        publisherServicePrx.attach(subscriberServicePrx);
     }
 }

@@ -6,13 +6,17 @@ import java.util.Map;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Current;
 
+import lombok.Setter;
 import modelo.ConexionBD;
 import modelo.ManejadorDatos;
+import servicios.PublisherServicePrx;
 import servicios.RecetaService;
 
+@Setter
 public class ProductoReceta implements RecetaService {
 
     private Communicator communicator;
+    private PublisherServicePrx publisherServicePrx;
 
     /**
      * @param communicator the communicator to set
@@ -115,6 +119,8 @@ public class ProductoReceta implements RecetaService {
         String ret = md.registrarReceta(nombre, precio);
 
         cbd.cerrarConexion();
+        System.out.println("Receta registrada en BD");
+        publisherServicePrx.reportChange();
 
         return ret;
     }

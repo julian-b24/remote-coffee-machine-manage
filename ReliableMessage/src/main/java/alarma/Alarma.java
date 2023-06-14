@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Alarma {
 
@@ -24,7 +24,13 @@ public class Alarma {
 
     private int tipo;
     private int idMaquina;
-    private Date fecha;
-    private Map<String, String> extraInfo;
+    //private Date fecha;
+    private HashMap<String, String> extraInfo;
+
+    public Alarma(int tipo, int idMaquina, HashMap<String, String> extraInfo){
+        this.tipo = tipo;
+        this.idMaquina = idMaquina;
+        this.extraInfo = extraInfo;
+    }
 
 }

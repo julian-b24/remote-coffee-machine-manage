@@ -1,4 +1,4 @@
-package receta;
+package productoReceta;
 
 import java.io.Serializable;
 import java.util.HashMap;

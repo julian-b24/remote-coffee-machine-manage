@@ -76,8 +76,7 @@ module servicios{
 
     interface PublisherService{
       void attach(SubscriberService* subscriberProxy);
-      void reportChange(Receta receta);
-      Receta getUpdate();
+      void reportChange();
     }
 
 }

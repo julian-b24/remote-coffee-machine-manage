@@ -27,6 +27,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void run() {
+        /*
         try {
             while(!alarmaStorage.getStorage().isEmpty()){
                 for (UUID uuid: alarmaStorage.getStorage().keySet()) {
@@ -59,7 +60,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
             Thread.sleep(60000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     @Override
@@ -69,9 +70,9 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, Current current) {
-        Map<String, String> extraInfo = new HashMap<>();
+        HashMap<String, String> extraInfo = new HashMap<>();
         extraInfo.put("IdIng", iDing);
-        Alarma alarma = new Alarma(Alarma.ALARMA_INGREDIENTE, idMaq, new Date(), extraInfo);
+        Alarma alarma = new Alarma(Alarma.ALARMA_INGREDIENTE, idMaq,   extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
         alarmaService.recibirNotificacionEscasezIngredientes(iDing, idMaq, uuidACK.toString());
@@ -79,7 +80,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, Current current) {
-        Alarma alarma = new Alarma(-1, idMaq, new Date(), null);
+        Alarma alarma = new Alarma(-1, idMaq,   null);
         switch (moneda) {
             case CIEN:
                 alarma.setTipo(Alarma.ALARMA_MONEDA_CIEN);
@@ -100,9 +101,9 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void recibirNotificacionEscasezSuministro(String idSumin, int idMaq, Current current) {
-        Map<String, String> extraInfo = new HashMap<>();
+        HashMap<String, String> extraInfo = new HashMap<>();
         extraInfo.put("IdSumin", idSumin);
-        Alarma alarma = new Alarma(Alarma.ALARMA_SUMINISTRO, idMaq, new Date(), null);
+        Alarma alarma = new Alarma(Alarma.ALARMA_SUMINISTRO, idMaq,  null);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
         alarmaService.recibirNotificacionEscasezSuministro(idSumin, idMaq, uuidACK.toString());
@@ -110,10 +111,10 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void recibirNotificacionAbastesimiento(int idMaq, String idInsumo, int cantidad, Current current) {
-        Map<String, String> extraInfo = new HashMap<>();
+        HashMap<String, String> extraInfo = new HashMap<>();
         extraInfo.put("Cantidad", String.valueOf(cantidad));
         extraInfo.put("IdInsumo", String.valueOf(idInsumo));
-        Alarma alarma = new Alarma(Alarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, new Date(), extraInfo);
+        Alarma alarma = new Alarma(Alarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
         alarmaService.recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, uuidACK.toString());
@@ -121,9 +122,9 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     @Override
     public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, Current current) {
-        Map<String, String> extraInfo = new HashMap<>();
+        HashMap<String, String> extraInfo = new HashMap<>();
         extraInfo.put("descripcion", descri);
-        Alarma alarma = new Alarma(Alarma.ALARMA_MAL_FUNCIONAMIENTO, idMaq, new Date(), extraInfo);
+        Alarma alarma = new Alarma(Alarma.ALARMA_MAL_FUNCIONAMIENTO, idMaq,  extraInfo);//
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
         alarmaService.recibirNotificacionMalFuncionamiento(idMaq, descri, uuidACK.toString());

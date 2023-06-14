@@ -12,6 +12,7 @@ public class AlarmaStorage {
 
     public void saveAlarm(Alarma alarma, UUID uuid){
         storage.put(uuid, alarma);
+        System.out.println(storage);
     }
     public void deleteAlarm(String uuid){
         storage.remove(UUID.fromString(uuid));

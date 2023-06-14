@@ -53,76 +53,36 @@ public interface PublisherServicePrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default void reportChange(receta.Receta receta)
+    default void reportChange()
     {
-        reportChange(receta, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        reportChange(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void reportChange(receta.Receta receta, java.util.Map<String, String> context)
+    default void reportChange(java.util.Map<String, String> context)
     {
-        _iceI_reportChangeAsync(receta, context, true).waitForResponse();
+        _iceI_reportChangeAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> reportChangeAsync(receta.Receta receta)
+    default java.util.concurrent.CompletableFuture<Void> reportChangeAsync()
     {
-        return _iceI_reportChangeAsync(receta, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_reportChangeAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> reportChangeAsync(receta.Receta receta, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> reportChangeAsync(java.util.Map<String, String> context)
     {
-        return _iceI_reportChangeAsync(receta, context, false);
+        return _iceI_reportChangeAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_receta -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_reportChangeAsync(receta.Receta iceP_receta, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_reportChangeAsync(java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "reportChange", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeSerializable(iceP_receta);
-                 }, null);
-        return f;
-    }
-
-    default receta.Receta getUpdate()
-    {
-        return getUpdate(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default receta.Receta getUpdate(java.util.Map<String, String> context)
-    {
-        return _iceI_getUpdateAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<receta.Receta> getUpdateAsync()
-    {
-        return _iceI_getUpdateAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<receta.Receta> getUpdateAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_getUpdateAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<receta.Receta> _iceI_getUpdateAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<receta.Receta> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getUpdate", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     receta.Receta ret;
-                     ret = istr.readSerializable(receta.Receta.class);
-                     return ret;
-                 });
+        f.invoke(false, context, null, null, null);
         return f;
     }
 

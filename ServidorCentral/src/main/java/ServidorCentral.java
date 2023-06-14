@@ -36,11 +36,16 @@ public class ServidorCentral {
             adapter.add(log, Util.stringToIdentity("logistica"));
             adapter.add(recetas, Util.stringToIdentity("Recetas"));
 
+            PublisherServicePrx publisherServicePrx = PublisherServicePrx.checkedCast(
+                    communicator.propertyToProxy("Publisher")).ice_twoway();
+
             ControladorRecetas controladorRecetas = new ControladorRecetas();
             controladorRecetas.setRecetaService(recetas);
-            controladorRecetas.run();
+            recetas.setPublisherServicePrx(publisherServicePrx);
+            System.out.println("Server up");
 
             adapter.activate();
+            controladorRecetas.run();
             communicator.waitForShutdown();
 
         }

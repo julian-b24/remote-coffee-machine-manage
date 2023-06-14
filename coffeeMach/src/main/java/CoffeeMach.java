@@ -11,19 +11,25 @@ public class CoffeeMach {
     List<String> extPar = new ArrayList<>();
     try (Communicator communicator = Util.initialize(args, "coffeMach.cfg", extPar)) {
 
-      AlarmaServicePrx alarmaS = AlarmaServicePrx.checkedCast(
-          communicator.propertyToProxy("alarmas")).ice_twoway();
       VentaServicePrx ventas = VentaServicePrx.checkedCast(
           communicator.propertyToProxy("ventas")).ice_twoway();
       RecetaServicePrx recetaServicePrx = RecetaServicePrx.checkedCast(
-          communicator.propertyToProxy("recetas")).ice_twoway();
+          communicator.propertyToProxy("receta")).ice_twoway();
+      ReliableMessageAlarmaServicePrx alarmaReliableS = ReliableMessageAlarmaServicePrx.checkedCast(
+              communicator.propertyToProxy("ReliableMessageAlarmas")).ice_twoway();
+      PublisherServicePrx publisherServicePrx = PublisherServicePrx.checkedCast(
+              communicator.propertyToProxy("Publisher")).ice_twoway();
+
 
       ObjectAdapter adapter = communicator.createObjectAdapter("CoffeMach");
       ControladorMQ service = new ControladorMQ();
-      service.setGateway(new Gateway(alarmaS, ventas, recetaServicePrx));
+      SubscriberServicePrx subscriberServicePrx = SubscriberServicePrx.uncheckedCast(
+              adapter.createProxy(Util.stringToIdentity("Subscriber")).ice_twoway());
+      service.setGateway(new Gateway(alarmaReliableS, ventas, recetaServicePrx, publisherServicePrx, subscriberServicePrx));
+      service.attach();
 
+      adapter.add(service, Util.stringToIdentity("CoffeeMach"));
       service.run();
-      adapter.add((ServicioAbastecimiento) service, Util.stringToIdentity("abastecer"));
       adapter.activate();
       communicator.waitForShutdown();
     }

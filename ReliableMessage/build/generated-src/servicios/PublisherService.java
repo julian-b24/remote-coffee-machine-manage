@@ -19,9 +19,7 @@ public interface PublisherService extends com.zeroc.Ice.Object
 {
     void attach(SubscriberServicePrx subscriberProxy, com.zeroc.Ice.Current current);
 
-    void reportChange(receta.Receta receta, com.zeroc.Ice.Current current);
-
-    receta.Receta getUpdate(com.zeroc.Ice.Current current);
+    void reportChange(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -75,37 +73,15 @@ public interface PublisherService extends com.zeroc.Ice.Object
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_reportChange(PublisherService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        receta.Receta iceP_receta;
-        iceP_receta = istr.readSerializable(receta.Receta.class);
-        inS.endReadParams();
-        obj.reportChange(iceP_receta, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getUpdate(PublisherService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        receta.Receta ret = obj.getUpdate(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeSerializable(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
+        obj.reportChange(current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
         "attach",
-        "getUpdate",
         "ice_id",
         "ice_ids",
         "ice_isA",
@@ -132,25 +108,21 @@ public interface PublisherService extends com.zeroc.Ice.Object
             }
             case 1:
             {
-                return _iceD_getUpdate(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
-            }
-            case 5:
-            {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
-            case 6:
+            case 5:
             {
                 return _iceD_reportChange(this, in, current);
             }
