@@ -2,8 +2,6 @@ servicios/RecetaServicePrx.java
  servicios.RecetaServicePrx
 servicios/_ServicioAbastecimientoPrxI.java
  servicios._ServicioAbastecimientoPrxI
-alarma/Alarma.java
- alarma.Alarma
 servicios/_AlarmaServicePrxI.java
  servicios._AlarmaServicePrxI
 servicios/_ServicioComLogisticaPrxI.java
@@ -35,6 +33,8 @@ servicios/AlarmaServicePrx.java
 servicios/RecetaService.java
  servicios.RecetaService
  servicios.RecetaService$1
+alarma/ReliableAlarma.java
+ alarma.ReliableAlarma
 servicios/PublisherServicePrx.java
  servicios.PublisherServicePrx
 servicios/_PublisherServicePrxI.java

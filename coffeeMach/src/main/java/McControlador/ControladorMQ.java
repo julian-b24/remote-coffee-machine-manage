@@ -25,7 +25,7 @@ import gateway.Gateway;
 import ingrediente.Ingrediente;
 import ingrediente.IngredienteRepositorio;
 
-public class ControladorMQ implements Runnable, ServicioAbastecimiento, SubscriberService {
+public class ControladorMQ implements Runnable, SubscriberService {
 
 	private Gateway gateway;
 
@@ -63,7 +63,7 @@ public class ControladorMQ implements Runnable, ServicioAbastecimiento, Subscrib
 		eventos();
 	}
 
-	@Override
+	//@Override
 	public void abastecer(int codMaquina, int idAlarma, Current current) {
 		// TODO Auto-generated method stub
 		int cantidad = 0;
@@ -140,21 +140,6 @@ public class ControladorMQ implements Runnable, ServicioAbastecimiento, Subscrib
 			gateway.enviarNotificacionAbastecimiento(codMaquina, idAlarma + "", cantidad);
 			//alarmaServicePrx.recibirNotificacionAbastesimiento(codMaquina, idAlarma + "", cantidad);
 		}
-	}
-
-	@Override
-	public String[] ice_ids(Current current) {
-		return ServicioAbastecimiento.super.ice_ids(current);
-	}
-
-	@Override
-	public String ice_id(Current current) {
-		return ServicioAbastecimiento.super.ice_id(current);
-	}
-
-	@Override
-	public CompletionStage<com.zeroc.Ice.OutputStream> _iceDispatch(Incoming in, Current current) throws UserException {
-		return ServicioAbastecimiento.super._iceDispatch(in, current);
 	}
 
 	public void attach(){

@@ -1,18 +1,13 @@
 package alarma;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class Alarma {
+public class ReliableAlarma {
 
     public static final int ALARMA_INGREDIENTE = 1;
     public static final int ALARMA_MONEDA_CIEN = 2;
@@ -27,7 +22,7 @@ public class Alarma {
     //private Date fecha;
     private HashMap<String, String> extraInfo;
 
-    public Alarma(int tipo, int idMaquina, HashMap<String, String> extraInfo){
+    public ReliableAlarma(int tipo, int idMaquina, HashMap<String, String> extraInfo){
         this.tipo = tipo;
         this.idMaquina = idMaquina;
         this.extraInfo = extraInfo;
