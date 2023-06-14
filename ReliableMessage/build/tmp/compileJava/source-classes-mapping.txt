@@ -8,8 +8,9 @@ servicios/_AlarmaServicePrxI.java
  servicios._AlarmaServicePrxI
 servicios/_ServicioComLogisticaPrxI.java
  servicios._ServicioComLogisticaPrxI
-ReliableMessage.java
- ReliableMessage
+servicios/ServicioAbastecimiento.java
+ servicios.ServicioAbastecimiento
+ servicios.ServicioAbastecimiento$1
 servicios/_VentaServicePrxI.java
  servicios._VentaServicePrxI
 servicios/ReliableMessageAlarmaService.java
@@ -20,9 +21,8 @@ servicios/ServicioAbastecimientoPrx.java
 servicios/VentaService.java
  servicios.VentaService
  servicios.VentaService$1
-controller/ReliableMessageAlarmaController.java
- controller.ReliableMessageAlarmaController
- controller.ReliableMessageAlarmaController$1
+servicios/ServicioComLogisticaPrx.java
+ servicios.ServicioComLogisticaPrx
 servicios/_RecetaServicePrxI.java
  servicios._RecetaServicePrxI
 servicios/Moneda.java
@@ -71,8 +71,8 @@ servicios/BrokerService.java
  servicios.BrokerService$1
 servicios/MapStrIntHelper.java
  servicios.MapStrIntHelper
-servicios/ServicioAbastecimiento.java
- servicios.ServicioAbastecimiento
- servicios.ServicioAbastecimiento$1
-servicios/ServicioComLogisticaPrx.java
- servicios.ServicioComLogisticaPrx
+controller/ReliableMessageAlarmaController.java
+ controller.ReliableMessageAlarmaController
+ controller.ReliableMessageAlarmaController$1
+ReliableMessage.java
+ ReliableMessage

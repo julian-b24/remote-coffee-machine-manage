@@ -38,6 +38,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
                 while(!alarmaStorage.getStorage().isEmpty()){
                     System.out.println("Enviando alarmas pendientes...");
                     setAlarmaService(brokerServicePrx.locateServer());
+                    System.out.println(getAlarmaService());
                     for (UUID uuid: alarmaStorage.getStorage().keySet()) {
                         ReliableAlarma alarma = alarmaStorage.getStorage().get(uuid);
                         switch (alarma.getTipo()){
