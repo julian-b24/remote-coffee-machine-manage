@@ -7,19 +7,15 @@ import servicios.BrokerService;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 @Setter
 public class BrokerController implements BrokerService {
 
-    private Map<String, AlarmaServicePrx> serverMap;
     private ArrayList<String> clients;
     private LinkedList<AlarmaServicePrx> serverQueue;
 
     public BrokerController(){
-        serverMap = new HashMap<>();
         serverQueue = new LinkedList<>();
         clients = new ArrayList<>();
     }
@@ -35,21 +31,20 @@ public class BrokerController implements BrokerService {
     }
 
     @Override
-    public String subscribeServer(String serverId, AlarmaServicePrx server, Current current) {
-        if (!validateRegister(serverMap, serverId)) {
-            serverMap.put(serverId, server);
+    public String subscribeServer(AlarmaServicePrx server, Current current) {
+        if (!serverQueue.contains(server)) {
             serverQueue.addLast(server);
-            return "Successful register of server: "+ serverId;
+            return "Successful register of server";
         }else{
-            return "Failed register of server: "+ serverId;
+            return "Failed register of server";
         }
     }
 
     @Override
     public AlarmaServicePrx locateServer(String clientId, Current current) {
-        AlarmaServicePrx serverId = serverQueue.pollFirst();
-        serverQueue.addLast(serverId);
-        return serverId;
+        AlarmaServicePrx server = serverQueue.pollFirst();
+        serverQueue.addLast(server);
+        return server;
     }
 
 
@@ -61,16 +56,5 @@ public class BrokerController implements BrokerService {
             return false;
         }
     }
-
-
-    private boolean validateRegister(Map map, String serverId) {
-        if(map.containsKey(serverId)){
-            System.out.println("Already registered");
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 
 }

@@ -21,6 +21,8 @@ public class CoffeeMach {
       PublisherServicePrx publisherServicePrx = PublisherServicePrx.checkedCast(
               communicator.propertyToProxy("Publisher")).ice_twoway();
 
+      BrokerServicePrx brokerServicePrx = BrokerServicePrx.checkedCast(
+              communicator.propertyToProxy("Broker")).ice_twoway();
 
       ObjectAdapter adapter = communicator.createObjectAdapter("CoffeMach");
       ControladorMQ service = new ControladorMQ();
@@ -28,10 +30,12 @@ public class CoffeeMach {
       ObjectPrx objectPrx = adapter.add(subscriberService, Util.stringToIdentity("Subscriber"));
       SubscriberServicePrx subscriberServicePrx = SubscriberServicePrx.checkedCast(objectPrx);
 
+
       System.out.println("Object px: " + objectPrx);
       System.out.println("Sub service: " + subscriberServicePrx);
-      service.setGateway(new Gateway(alarmaReliableS, ventas, recetaServicePrx, publisherServicePrx, subscriberServicePrx));
+      service.setGateway(new Gateway(alarmaReliableS, ventas, recetaServicePrx, publisherServicePrx, subscriberServicePrx, brokerServicePrx));
       service.attach();
+      service.subscribeToBroker();
 
       adapter.activate();
       service.run();

@@ -4,10 +4,10 @@ import java.util.Date;
 
 import com.zeroc.Ice.Current;
 
-import servicios.AlarmaService;
-import servicios.Moneda;
-import servicios.ReliableMessageAlarmaServicePrx;
+import lombok.Setter;
+import servicios.*;
 
+@Setter
 public class AlarmaGenerator implements AlarmaService {
 
     public static final int ALARMA_INGREDIENTE = 1;
@@ -18,9 +18,11 @@ public class AlarmaGenerator implements AlarmaService {
     public static final int ALARMA_MAL_FUNCIONAMIENTO = 6;
 
     private AlarmasManager manager;
+    private BrokerServicePrx brokerServicePrx;
 
-    public AlarmaGenerator(AlarmasManager manager) {
+    public AlarmaGenerator(AlarmasManager manager, BrokerServicePrx brokerServicePrx) {
         this.manager = manager;
+        this.brokerServicePrx = brokerServicePrx;
     }
 
     @Override
@@ -67,6 +69,10 @@ public class AlarmaGenerator implements AlarmaService {
     public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, String uuidACK, ReliableMessageAlarmaServicePrx proxy, Current current) {
         manager.alarmaMaquina(ALARMA_MAL_FUNCIONAMIENTO, idMaq, new Date());
         proxy.sendACK(uuidACK);
+    }
+
+    public void subscribeToBroker(AlarmaServicePrx server){
+        System.out.println(brokerServicePrx.subscribeServer(server));
     }
 
 }

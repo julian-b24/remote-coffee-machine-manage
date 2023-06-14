@@ -146,6 +146,10 @@ public class ControladorMQ implements Runnable, SubscriberService {
 		gateway.attachPublisher();
 	}
 
+	public void subscribeToBroker(){
+		gateway.subscribeToBroker(""+codMaquina);
+	}
+
 	@Override
 	public void notifySub(Current current) {
 		System.out.println("Nueva receta notificada");

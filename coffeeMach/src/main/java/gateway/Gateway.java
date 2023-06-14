@@ -10,6 +10,8 @@ public class Gateway {
     private RecetaServicePrx recetaServicePrx;
     private PublisherServicePrx publisherServicePrx;
     private SubscriberServicePrx subscriberServicePrx;
+    private BrokerServicePrx brokerServicePrx;
+
 
     public void enviarNotificacionAbastecimiento(int codMaquina, String idAlarma, int cantidad) {
         reliableMessageAlarmaServicePrx.recibirNotificacionAbastesimiento(codMaquina, idAlarma, cantidad);
@@ -37,5 +39,9 @@ public class Gateway {
 
     public void attachPublisher(){
         publisherServicePrx.attach(subscriberServicePrx);
+    }
+
+    public void subscribeToBroker(String clientId){
+        System.out.println(brokerServicePrx.subscribeClient(clientId));
     }
 }
