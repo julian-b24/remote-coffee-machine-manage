@@ -37,6 +37,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
             try {
                 while(!alarmaStorage.getStorage().isEmpty()){
                     System.out.println("Enviando alarmas pendientes...");
+                    setAlarmaService(brokerServicePrx.locateServer());
                     for (UUID uuid: alarmaStorage.getStorage().keySet()) {
                         ReliableAlarma alarma = alarmaStorage.getStorage().get(uuid);
                         switch (alarma.getTipo()){
@@ -79,6 +80,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
     public void sendACK(String uuidAlarma, Current current) {
         System.out.println("Alarma eliminada: " + uuidAlarma);
         alarmaStorage.deleteAlarm(uuidAlarma);
+        alarmaStorage.saveStorageToFile();
     }
 
     @Override
@@ -87,8 +89,8 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdIng", iDing);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_INGREDIENTE, idMaq,   extraInfo);
         UUID uuidACK = UUID.randomUUID();
-        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
+        alarmaStorage.saveStorageToFile();
     }
 
     @Override
@@ -108,8 +110,8 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
                 break;
         }
         UUID uuidACK = UUID.randomUUID();
-        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
+        alarmaStorage.saveStorageToFile();
     }
 
     @Override
@@ -118,8 +120,8 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdSumin", idSumin);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_SUMINISTRO, idMaq,  null);
         UUID uuidACK = UUID.randomUUID();
-        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
+        alarmaStorage.saveStorageToFile();
     }
 
     @Override
@@ -129,8 +131,8 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdInsumo", String.valueOf(idInsumo));
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, extraInfo);
         UUID uuidACK = UUID.randomUUID();
-        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
+        alarmaStorage.saveStorageToFile();
     }
 
     @Override
@@ -139,8 +141,8 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("descripcion", descri);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_MAL_FUNCIONAMIENTO, idMaq,  extraInfo);//
         UUID uuidACK = UUID.randomUUID();
-        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
+        alarmaStorage.saveStorageToFile();
     }
 
 }

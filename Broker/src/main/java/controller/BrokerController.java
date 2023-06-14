@@ -36,7 +36,7 @@ public class BrokerController implements BrokerService {
             serverQueue.addLast(server);
             return "Successful register of server";
         }else{
-            return "Failed register of server";
+            return "Server already registered";
         }
     }
 

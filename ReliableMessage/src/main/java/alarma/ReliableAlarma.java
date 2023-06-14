@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 @Getter
 @Setter
-public class ReliableAlarma {
+public class ReliableAlarma implements java.io.Serializable{
 
     public static final int ALARMA_INGREDIENTE = 1;
     public static final int ALARMA_MONEDA_CIEN = 2;
