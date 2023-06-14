@@ -2,6 +2,7 @@ package McControlador;
 
 import com.zeroc.Ice.UserException;
 import com.zeroc.IceInternal.Incoming;
+import lombok.Setter;
 import servicios.*;
 import monedero.DepositoMonedas;
 import monedero.MonedasRepositorio;
@@ -25,6 +26,7 @@ import gateway.Gateway;
 import ingrediente.Ingrediente;
 import ingrediente.IngredienteRepositorio;
 
+@Setter
 public class ControladorMQ implements Runnable, SubscriberService {
 
 	private Gateway gateway;
@@ -45,7 +47,7 @@ public class ControladorMQ implements Runnable, SubscriberService {
 	private VentaRepositorio ventas = VentaRepositorio.getInstance();
 
 	private Interfaz frame;
-	private int codMaquina;
+	public int codMaquina;
 	private double suma;
 
 	public void run() {
@@ -549,7 +551,7 @@ public class ControladorMQ implements Runnable, SubscriberService {
 		}
 	}
 
-	private int quemarCodMaquina() {
+	public int quemarCodMaquina() {
 		int retorno = -2;
 
 		FileInputStream fstream;

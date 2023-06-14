@@ -30,11 +30,9 @@ public class CoffeeMach {
       ObjectPrx objectPrx = adapter.add(subscriberService, Util.stringToIdentity("Subscriber"));
       SubscriberServicePrx subscriberServicePrx = SubscriberServicePrx.checkedCast(objectPrx);
 
-
-      System.out.println("Object px: " + objectPrx);
-      System.out.println("Sub service: " + subscriberServicePrx);
       service.setGateway(new Gateway(alarmaReliableS, ventas, recetaServicePrx, publisherServicePrx, subscriberServicePrx, brokerServicePrx));
       service.attach();
+      service.setCodMaquina(service.quemarCodMaquina());
       service.subscribeToBroker();
 
       adapter.activate();
