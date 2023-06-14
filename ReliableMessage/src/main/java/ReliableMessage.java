@@ -21,7 +21,7 @@ public class ReliableMessage {
 
             service.setAlarmaService(alarmaS);
             service.setReliableMessageAlarmaServicePrx(reliableMessageAlarmaServicePrx);
-            //service.run();
+            service.start();
 
             adapter.activate();
             communicator.waitForShutdown();

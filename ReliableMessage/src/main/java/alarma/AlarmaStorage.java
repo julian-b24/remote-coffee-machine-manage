@@ -16,8 +16,8 @@ public class AlarmaStorage {
     }
 
     public void saveAlarm(ReliableAlarma alarma, UUID uuid){
+        System.out.println("Alarma guardada: " + uuid);
         storage.put(uuid, alarma);
-        System.out.println(storage);
     }
     public void deleteAlarm(String uuid){
         storage.remove(UUID.fromString(uuid));

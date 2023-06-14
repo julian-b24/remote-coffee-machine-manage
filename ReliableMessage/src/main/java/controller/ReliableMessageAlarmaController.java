@@ -2,6 +2,7 @@ package controller;
 
 import alarma.ReliableAlarma;
 import alarma.AlarmaStorage;
+import com.zeroc.Ice.ConnectFailedException;
 import com.zeroc.Ice.Current;
 import lombok.Setter;
 import servicios.AlarmaServicePrx;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @Setter
-public class ReliableMessageAlarmaController implements ReliableMessageAlarmaService {
+public class ReliableMessageAlarmaController extends Thread implements ReliableMessageAlarmaService {
 
     private AlarmaServicePrx alarmaService;
     private ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx;
@@ -25,45 +26,52 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
 
     //@Override
     public void run() {
-        /*
-        try {
-            while(!alarmaStorage.getStorage().isEmpty()){
-                for (UUID uuid: alarmaStorage.getStorage().keySet()) {
-                    Alarma alarma = alarmaStorage.getStorage().get(uuid);
-                    switch (alarma.getTipo()){
-                        case Alarma.ALARMA_INGREDIENTE:
-                            alarmaService.recibirNotificacionEscasezIngredientes(alarma.getExtraInfo().get("IdIng"), alarma.getIdMaquina(), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_MONEDA_CIEN:
-                            alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.CIEN, alarma.getIdMaquina(), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_MONEDA_DOS:
-                            alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.DOCIENTOS, alarma.getIdMaquina(), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_MONEDA_QUI:
-                            alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.QUINIENTOS, alarma.getIdMaquina(), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_SUMINISTRO:
-                            alarmaService.recibirNotificacionEscasezSuministro(alarma.getExtraInfo().get("IdSumin"), alarma.getIdMaquina(), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_NOTIFICACION_ABASTECIMIENTO:
-                            alarmaService.recibirNotificacionAbastesimiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("IdInsumo"), Integer.parseInt(alarma.getExtraInfo().get("Cantidad")), uuid.toString());
-                            break;
-                        case Alarma.ALARMA_MAL_FUNCIONAMIENTO:
-                            alarmaService.recibirNotificacionMalFuncionamiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("descripcion"), uuid.toString());
-                            break;
+
+        while(true){
+            try {
+                while(!alarmaStorage.getStorage().isEmpty()){
+                    System.out.println("Enviando alarmas pendientes...");
+                    for (UUID uuid: alarmaStorage.getStorage().keySet()) {
+                        ReliableAlarma alarma = alarmaStorage.getStorage().get(uuid);
+                        switch (alarma.getTipo()){
+                            case ReliableAlarma.ALARMA_INGREDIENTE:
+                                alarmaService.recibirNotificacionEscasezIngredientes(alarma.getExtraInfo().get("IdIng"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_MONEDA_CIEN:
+                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.CIEN, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_MONEDA_DOS:
+                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.DOCIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_MONEDA_QUI:
+                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.QUINIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_SUMINISTRO:
+                                alarmaService.recibirNotificacionEscasezSuministro(alarma.getExtraInfo().get("IdSumin"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO:
+                                alarmaService.recibirNotificacionAbastesimiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("IdInsumo"), Integer.parseInt(alarma.getExtraInfo().get("Cantidad")), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                            case ReliableAlarma.ALARMA_MAL_FUNCIONAMIENTO:
+                                alarmaService.recibirNotificacionMalFuncionamiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("descripcion"), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                break;
+                        }
                     }
                 }
+            } catch (ConnectFailedException e){
+                System.out.println("No es posible conectar con servidor central, se reintentará el envío de alarmas en 1 min");
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-            Thread.sleep(60000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
+        }
     }
 
     @Override
     public void sendACK(String uuidAlarma, Current current) {
-        System.out.println("Alarma "+ uuidAlarma +" eliminada");
+        System.out.println("Alarma eliminada: " + uuidAlarma);
         alarmaStorage.deleteAlarm(uuidAlarma);
     }
 
@@ -74,7 +82,6 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_INGREDIENTE, idMaq,   extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionEscasezIngredientes(iDing, idMaq, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -95,7 +102,6 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         }
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionInsuficienciaMoneda(moneda, idMaq, uuidACK.toString(),reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -105,7 +111,6 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_SUMINISTRO, idMaq,  null);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionEscasezSuministro(idSumin, idMaq, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -116,20 +121,15 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
     public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, Current current) {
         HashMap<String, String> extraInfo = new HashMap<String, String>();
         extraInfo.put("descripcion", descri);
-        System.out.println("Alarma recibida");
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_MAL_FUNCIONAMIENTO, idMaq,  extraInfo);//
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        System.out.println("Alarma guardada");
-        alarmaService.recibirNotificacionMalFuncionamiento(idMaq, descri, uuidACK.toString(), reliableMessageAlarmaServicePrx);
-        System.out.println("Alarma enviada: " + uuidACK.toString());
     }
 
 }
