@@ -7,6 +7,7 @@ import lombok.Setter;
 import servicios.AlarmaServicePrx;
 import servicios.Moneda;
 import servicios.ReliableMessageAlarmaService;
+import servicios.ReliableMessageAlarmaServicePrx;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 public class ReliableMessageAlarmaController implements ReliableMessageAlarmaService {
 
     private AlarmaServicePrx alarmaService;
+    private ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx;
     private AlarmaStorage alarmaStorage;
 
     public ReliableMessageAlarmaController(){
@@ -72,7 +74,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_INGREDIENTE, idMaq,   extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionEscasezIngredientes(iDing, idMaq, uuidACK.toString());
+        alarmaService.recibirNotificacionEscasezIngredientes(iDing, idMaq, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -93,7 +95,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         }
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionInsuficienciaMoneda(moneda, idMaq, uuidACK.toString());
+        alarmaService.recibirNotificacionInsuficienciaMoneda(moneda, idMaq, uuidACK.toString(),reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -103,7 +105,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_SUMINISTRO, idMaq,  null);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionEscasezSuministro(idSumin, idMaq, uuidACK.toString());
+        alarmaService.recibirNotificacionEscasezSuministro(idSumin, idMaq, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -114,7 +116,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, extraInfo);
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
-        alarmaService.recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, uuidACK.toString());
+        alarmaService.recibirNotificacionAbastesimiento(idMaq, idInsumo, cantidad, uuidACK.toString(), reliableMessageAlarmaServicePrx);
     }
 
     @Override
@@ -126,7 +128,7 @@ public class ReliableMessageAlarmaController implements ReliableMessageAlarmaSer
         UUID uuidACK = UUID.randomUUID();
         alarmaStorage.saveAlarm(alarma, uuidACK);
         System.out.println("Alarma guardada");
-        alarmaService.recibirNotificacionMalFuncionamiento(idMaq, descri, uuidACK.toString());
+        alarmaService.recibirNotificacionMalFuncionamiento(idMaq, descri, uuidACK.toString(), reliableMessageAlarmaServicePrx);
         System.out.println("Alarma enviada: " + uuidACK.toString());
     }
 

@@ -15,9 +15,12 @@ public class ReliableMessage {
 
             ObjectAdapter adapter = communicator.createObjectAdapter("ReliableMessageAlarmas");
             ReliableMessageAlarmaController service = new ReliableMessageAlarmaController();
-            service.setAlarmaService(alarmaS);
+            ReliableMessageAlarmaService reliableMessageAlarmaService = service;
+            ObjectPrx objectPrx = adapter.add(reliableMessageAlarmaService, Util.stringToIdentity("ReliableMessageAlarmas"));
+            ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx = ReliableMessageAlarmaServicePrx.checkedCast(objectPrx);
 
-            adapter.add(service, Util.stringToIdentity("ReliableMessageAlarmas"));
+            service.setAlarmaService(alarmaS);
+            service.setReliableMessageAlarmaServicePrx(reliableMessageAlarmaServicePrx);
             //service.run();
 
             adapter.activate();

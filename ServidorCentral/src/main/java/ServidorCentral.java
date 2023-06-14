@@ -8,7 +8,7 @@ import receta.ProductoReceta;
 import servicios.*;
 import ventas.VentasManager;
 import ServerControl.*;
-import alarma.Alarma;
+import alarma.AlarmaGenerator;
 import alarma.AlarmasManager;
 
 public class ServidorCentral {
@@ -23,7 +23,7 @@ public class ServidorCentral {
 
             ServicioComLogistica log = new ControlComLogistica(control);
 
-            Alarma alarma = new Alarma(new AlarmasManager(communicator));
+            AlarmaGenerator alarma = new AlarmaGenerator(new AlarmasManager(communicator));
 
             ProductoReceta recetas = new ProductoReceta();
             recetas.setCommunicator(communicator);

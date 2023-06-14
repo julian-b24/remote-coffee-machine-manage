@@ -30,17 +30,6 @@ module servicios{
     enum Moneda{
       CIEN, DOCIENTOS, QUINIENTOS
     }
-  
-
-
-    interface AlarmaService{
-      void recibirNotificacionEscasezIngredientes(string iDing, int idMaq, string uuidACK);
-      void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, string uuidACK);
-      void recibirNotificacionEscasezSuministro(string idSumin, int idMaq, string uuidACK);
-      void recibirNotificacionAbastesimiento(int idMaq, string idInsumo, int cantidad, string uuidACK);
-      void recibirNotificacionMalFuncionamiento(int idMaq, string descri, string uuidACK);
-
-    }
 
     interface VentaService{
       void registrarVenta(int codMaq, StringArr ventas);
@@ -67,6 +56,14 @@ module servicios{
       void recibirNotificacionEscasezSuministro(string idSumin, int idMaq);
       void recibirNotificacionAbastesimiento(int idMaq, string idInsumo, int cantidad );
       void recibirNotificacionMalFuncionamiento(int idMaq, string descri);
+    }
+
+    interface AlarmaService{
+      void recibirNotificacionEscasezIngredientes(string iDing, int idMaq, string uuidACK, ReliableMessageAlarmaService* proxy);
+      void recibirNotificacionInsuficienciaMoneda(Moneda moneda, int idMaq, string uuidACK, ReliableMessageAlarmaService* proxy);
+      void recibirNotificacionEscasezSuministro(string idSumin, int idMaq, string uuidACK, ReliableMessageAlarmaService* proxy);
+      void recibirNotificacionAbastesimiento(int idMaq, string idInsumo, int cantidad, string uuidACK, ReliableMessageAlarmaService* proxy);
+      void recibirNotificacionMalFuncionamiento(int idMaq, string descri, string uuidACK, ReliableMessageAlarmaService* proxy);
     }
 
     //Publisher-Subscriber interfaces
