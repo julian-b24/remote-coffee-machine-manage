@@ -11,8 +11,6 @@ public class ReliableMessage {
 
         try (Communicator communicator = Util.initialize(args, "ReliableMessage.cfg", extPar)) {
 
-            AlarmaServicePrx alarmaS = AlarmaServicePrx.checkedCast(communicator.propertyToProxy("alarmas")).ice_twoway();
-
             BrokerServicePrx brokerServicePrx = BrokerServicePrx.checkedCast(
                     communicator.propertyToProxy("Broker")).ice_twoway();
 
@@ -22,7 +20,6 @@ public class ReliableMessage {
             ObjectPrx objectPrx = adapter.add(reliableMessageAlarmaService, Util.stringToIdentity("ReliableMessageAlarmas"));
             ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx = ReliableMessageAlarmaServicePrx.checkedCast(objectPrx);
 
-            service.setAlarmaService(alarmaS);
             service.setBrokerServicePrx(brokerServicePrx);
             service.setReliableMessageAlarmaServicePrx(reliableMessageAlarmaServicePrx);
             service.start();
