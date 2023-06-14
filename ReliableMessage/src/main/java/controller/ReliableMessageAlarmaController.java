@@ -5,10 +5,7 @@ import alarma.AlarmaStorage;
 import com.zeroc.Ice.ConnectFailedException;
 import com.zeroc.Ice.Current;
 import lombok.Setter;
-import servicios.AlarmaServicePrx;
-import servicios.Moneda;
-import servicios.ReliableMessageAlarmaService;
-import servicios.ReliableMessageAlarmaServicePrx;
+import servicios.*;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -19,9 +16,18 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
     private AlarmaServicePrx alarmaService;
     private ReliableMessageAlarmaServicePrx reliableMessageAlarmaServicePrx;
     private AlarmaStorage alarmaStorage;
+    private BrokerServicePrx brokerServicePrx;
 
     public ReliableMessageAlarmaController(){
         alarmaStorage = new AlarmaStorage();
+    }
+
+    public synchronized void setAlarmaService(AlarmaServicePrx alarmaService){
+        this.alarmaService= alarmaService;
+    }
+
+    public synchronized AlarmaServicePrx getAlarmaService(){
+        return alarmaService;
     }
 
     //@Override
@@ -35,25 +41,25 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
                         ReliableAlarma alarma = alarmaStorage.getStorage().get(uuid);
                         switch (alarma.getTipo()){
                             case ReliableAlarma.ALARMA_INGREDIENTE:
-                                alarmaService.recibirNotificacionEscasezIngredientes(alarma.getExtraInfo().get("IdIng"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionEscasezIngredientes(alarma.getExtraInfo().get("IdIng"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_MONEDA_CIEN:
-                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.CIEN, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionInsuficienciaMoneda(Moneda.CIEN, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_MONEDA_DOS:
-                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.DOCIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionInsuficienciaMoneda(Moneda.DOCIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_MONEDA_QUI:
-                                alarmaService.recibirNotificacionInsuficienciaMoneda(Moneda.QUINIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionInsuficienciaMoneda(Moneda.QUINIENTOS, alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_SUMINISTRO:
-                                alarmaService.recibirNotificacionEscasezSuministro(alarma.getExtraInfo().get("IdSumin"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionEscasezSuministro(alarma.getExtraInfo().get("IdSumin"), alarma.getIdMaquina(), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO:
-                                alarmaService.recibirNotificacionAbastesimiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("IdInsumo"), Integer.parseInt(alarma.getExtraInfo().get("Cantidad")), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionAbastesimiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("IdInsumo"), Integer.parseInt(alarma.getExtraInfo().get("Cantidad")), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                             case ReliableAlarma.ALARMA_MAL_FUNCIONAMIENTO:
-                                alarmaService.recibirNotificacionMalFuncionamiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("descripcion"), uuid.toString(), reliableMessageAlarmaServicePrx);
+                                getAlarmaService().recibirNotificacionMalFuncionamiento(alarma.getIdMaquina(), alarma.getExtraInfo().get("descripcion"), uuid.toString(), reliableMessageAlarmaServicePrx);
                                 break;
                         }
                     }
@@ -81,6 +87,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdIng", iDing);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_INGREDIENTE, idMaq,   extraInfo);
         UUID uuidACK = UUID.randomUUID();
+        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
     }
 
@@ -101,6 +108,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
                 break;
         }
         UUID uuidACK = UUID.randomUUID();
+        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
     }
 
@@ -110,6 +118,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdSumin", idSumin);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_SUMINISTRO, idMaq,  null);
         UUID uuidACK = UUID.randomUUID();
+        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
     }
 
@@ -120,6 +129,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("IdInsumo", String.valueOf(idInsumo));
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_NOTIFICACION_ABASTECIMIENTO, idMaq, extraInfo);
         UUID uuidACK = UUID.randomUUID();
+        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
     }
 
@@ -129,6 +139,7 @@ public class ReliableMessageAlarmaController extends Thread implements ReliableM
         extraInfo.put("descripcion", descri);
         ReliableAlarma alarma = new ReliableAlarma(ReliableAlarma.ALARMA_MAL_FUNCIONAMIENTO, idMaq,  extraInfo);//
         UUID uuidACK = UUID.randomUUID();
+        setAlarmaService(brokerServicePrx.locateServer());
         alarmaStorage.saveAlarm(alarma, uuidACK);
     }
 

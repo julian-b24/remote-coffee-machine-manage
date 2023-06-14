@@ -97,39 +97,36 @@ public interface BrokerServicePrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default AlarmaServicePrx locateServer(String clientId)
+    default AlarmaServicePrx locateServer()
     {
-        return locateServer(clientId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return locateServer(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default AlarmaServicePrx locateServer(String clientId, java.util.Map<String, String> context)
+    default AlarmaServicePrx locateServer(java.util.Map<String, String> context)
     {
-        return _iceI_locateServerAsync(clientId, context, true).waitForResponse();
+        return _iceI_locateServerAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<AlarmaServicePrx> locateServerAsync(String clientId)
+    default java.util.concurrent.CompletableFuture<AlarmaServicePrx> locateServerAsync()
     {
-        return _iceI_locateServerAsync(clientId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_locateServerAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<AlarmaServicePrx> locateServerAsync(String clientId, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<AlarmaServicePrx> locateServerAsync(java.util.Map<String, String> context)
     {
-        return _iceI_locateServerAsync(clientId, context, false);
+        return _iceI_locateServerAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_clientId -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<AlarmaServicePrx> _iceI_locateServerAsync(String iceP_clientId, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<AlarmaServicePrx> _iceI_locateServerAsync(java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<AlarmaServicePrx> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "locateServer", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_clientId);
-                 }, istr -> {
+        f.invoke(true, context, null, null, istr -> {
                      AlarmaServicePrx ret;
                      ret = AlarmaServicePrx.uncheckedCast(istr.readProxy());
                      return ret;

@@ -21,7 +21,7 @@ public interface BrokerService extends com.zeroc.Ice.Object
 
     String subscribeClient(String clientId, com.zeroc.Ice.Current current);
 
-    AlarmaServicePrx locateServer(String clientId, com.zeroc.Ice.Current current);
+    AlarmaServicePrx locateServer(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -99,11 +99,8 @@ public interface BrokerService extends com.zeroc.Ice.Object
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_locateServer(BrokerService obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_clientId;
-        iceP_clientId = istr.readString();
-        inS.endReadParams();
-        AlarmaServicePrx ret = obj.locateServer(iceP_clientId, current);
+        inS.readEmptyParams();
+        AlarmaServicePrx ret = obj.locateServer(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeProxy(ret);
         inS.endWriteParams(ostr);

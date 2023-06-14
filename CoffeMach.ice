@@ -79,7 +79,7 @@ module servicios{
      interface BrokerService{
             string subscribeServer(AlarmaService* server);
             string subscribeClient(string clientId);
-            AlarmaService* locateServer(string clientId);
+            AlarmaService* locateServer();
       }
 
 }

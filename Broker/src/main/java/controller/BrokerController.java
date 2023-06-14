@@ -41,7 +41,7 @@ public class BrokerController implements BrokerService {
     }
 
     @Override
-    public AlarmaServicePrx locateServer(String clientId, Current current) {
+    public AlarmaServicePrx locateServer(Current current) {
         AlarmaServicePrx server = serverQueue.pollFirst();
         serverQueue.addLast(server);
         return server;
