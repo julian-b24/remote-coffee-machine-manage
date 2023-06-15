@@ -1,7 +1,9 @@
 package comunicacion;
 
 import ServerControl.*;
+import alarma.AlarmasManager;
 import lombok.Getter;
+import lombok.Setter;
 import servicios.ServiceLogisticaPrx;
 import servicios.ServicioComLogistica;
 import com.zeroc.Ice.*;
@@ -10,10 +12,12 @@ import servicios.alarma.AlarmaLogistica;
 import java.util.*;
 
 @Getter
+@Setter
 public class ControlComLogistica implements ServicioComLogistica{
  
 	private ServerControl control;
 	private ServiceLogisticaPrx serviceLogisticaPrx;
+	private AlarmasManager alarmasManager;
 
 	public ControlComLogistica(ServerControl con) {
 		control = con;
@@ -51,6 +55,12 @@ public class ControlComLogistica implements ServicioComLogistica{
 	public void attachServer(ServiceLogisticaPrx proxy, Current current){
 		this.serviceLogisticaPrx = proxy;
 		System.out.println("Bodega conectada");
+	}
+
+	@Override
+	public void desactivarAlarma(int idMaquina, int idAlarma, Current current){
+		alarmasManager.desactivarAlarma(idAlarma, idMaquina, new Date());
+		System.out.println("Alarma desactivada");
 	}
 
 

@@ -29,6 +29,8 @@ public interface ServicioComLogistica extends com.zeroc.Ice.Object
 
     void attachServer(ServiceLogisticaPrx proxy, com.zeroc.Ice.Current current);
 
+    void desactivarAlarma(int idMaquina, int idAlarma, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -174,6 +176,26 @@ public interface ServicioComLogistica extends com.zeroc.Ice.Object
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_desactivarAlarma(ServicioComLogistica obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_idMaquina;
+        int iceP_idAlarma;
+        iceP_idMaquina = istr.readInt();
+        iceP_idAlarma = istr.readInt();
+        inS.endReadParams();
+        obj.desactivarAlarma(iceP_idMaquina, iceP_idAlarma, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -181,6 +203,7 @@ public interface ServicioComLogistica extends com.zeroc.Ice.Object
         "asignacionMaquinasDesabastecidas",
         "asignarOperador",
         "attachServer",
+        "desactivarAlarma",
         "ice_id",
         "ice_ids",
         "ice_isA",
@@ -220,25 +243,29 @@ public interface ServicioComLogistica extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_desactivarAlarma(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 7:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 8:
             {
-                return _iceD_inicioSesion(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 9:
+            {
+                return _iceD_inicioSesion(this, in, current);
+            }
+            case 10:
             {
                 return _iceD_obtenerAlarmas(this, in, current);
             }

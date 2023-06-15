@@ -250,6 +250,44 @@ public interface ServicioComLogisticaPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default void desactivarAlarma(int idMaquina, int idAlarma)
+    {
+        desactivarAlarma(idMaquina, idAlarma, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void desactivarAlarma(int idMaquina, int idAlarma, java.util.Map<String, String> context)
+    {
+        _iceI_desactivarAlarmaAsync(idMaquina, idAlarma, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> desactivarAlarmaAsync(int idMaquina, int idAlarma)
+    {
+        return _iceI_desactivarAlarmaAsync(idMaquina, idAlarma, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> desactivarAlarmaAsync(int idMaquina, int idAlarma, java.util.Map<String, String> context)
+    {
+        return _iceI_desactivarAlarmaAsync(idMaquina, idAlarma, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_idMaquina -
+     * @param iceP_idAlarma -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_desactivarAlarmaAsync(int iceP_idMaquina, int iceP_idAlarma, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "desactivarAlarma", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_idMaquina);
+                     ostr.writeInt(iceP_idAlarma);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

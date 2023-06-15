@@ -28,19 +28,6 @@ public class LogisticaController extends Thread implements ServiceLogistica {
     }
 
 
-    public void asignarOperador() {
-        int idMaquina, idOperador;
-        try {
-            System.out.println("Ingrese el id de la máquina");
-            idMaquina = Integer.parseInt(READER.readLine());
-            System.out.println("Ingrese el id del operador");
-            idOperador = Integer.parseInt(READER.readLine());
-            servicioComLogisticaPrx.asignarOperador(idMaquina, idOperador);
-        } catch (IOException e) {
-            System.out.println("Id invalidado");
-        }
-    }
-
     @SneakyThrows
     public void run(){
         int option = 0;
@@ -58,9 +45,6 @@ public class LogisticaController extends Thread implements ServiceLogistica {
                 verAlarmas();
                 break;
             case 2:
-                asignarOperador();
-                break;
-            case 3:
                 desactivarAlarma();
                 break;
             case 0:
@@ -75,9 +59,8 @@ public class LogisticaController extends Thread implements ServiceLogistica {
     private String getMenu(){
         return "Seleccione una opción: " + "\n"+
                 "1. Ver Alarmas" + "\n"+
-                "2. Asignar Operador" + "\n"+
-                "3. Desactivar"+ "\n"+
-                "0. Saliar"+ "\n";
+                "2. Desactivar Alarma" + "\n"+
+                "0. Salir"+ "\n";
     }
 
     private void verAlarmas(){
@@ -93,7 +76,17 @@ public class LogisticaController extends Thread implements ServiceLogistica {
         servicioComLogisticaPrx.attachServer(proxy);
     }
 
-    public void desactivarAlarma(){
+    public void desactivarAlarma() {
 
+        int idMaquina, idAlarma;
+        try {
+            System.out.println("Ingrese el id de la máquina");
+            idMaquina = Integer.parseInt(READER.readLine());
+            System.out.println("Ingrese el id de la alarma");
+            idAlarma = Integer.parseInt(READER.readLine());
+            servicioComLogisticaPrx.desactivarAlarma(idMaquina, idAlarma);
+        } catch (IOException e) {
+            System.out.println("Id inválido");
+        }
     }
 }

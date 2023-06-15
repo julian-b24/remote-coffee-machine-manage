@@ -38,6 +38,7 @@ module servicios{
     	    void asignarOperador(int idMaquina, int idOperador);
     	    AlarmasMaps obtenerAlarmas();
     	    void attachServer(ServiceLogistica* proxy);
+    	    void desactivarAlarma(int idMaquina, int idAlarma);
         }
 
     interface ServicioAbastecimiento {
