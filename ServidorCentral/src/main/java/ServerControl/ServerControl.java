@@ -1,10 +1,14 @@
 package ServerControl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.zeroc.Ice.Communicator;
 
 import modelo.*;
+import servicios.alarma.AlarmaLogistica;
 
 public class ServerControl {
 
@@ -19,18 +23,25 @@ public class ServerControl {
 
 	}
 
-	public boolean asignarOperador(int idMaquina, int idOperador) {
-		if (idMaquina == 0 || idOperador == 0) {
-			return false;
-		} else {
+	public void asignarOperador(int idMaquina, int idOperador) {
+		if (idMaquina != 0 && idOperador != 0) {
 			ConexionBD cbd = new ConexionBD(comunicator);
 			cbd.conectarBaseDatos();
 			ManejadorDatos md = new ManejadorDatos();
 			md.setConexion(cbd.getConnection());
 			md.asignarOperador(idOperador, idMaquina);
 			cbd.cerrarConexion();
-			return true;
 		}
+	}
+
+	public List<AlarmaLogistica> obtenerAlarmas(){
+		ConexionBD cbd = new ConexionBD(comunicator);
+		cbd.conectarBaseDatos();
+		ManejadorDatos md = new ManejadorDatos();
+		md.setConexion(cbd.getConnection());
+		List<AlarmaLogistica> alarmas = md.obtenerAlarmas();
+		cbd.cerrarConexion();
+		return alarmas;
 	}
 
 	public List<String> listaAsignaciones(int codigooperador) {

@@ -139,6 +139,117 @@ public interface ServicioComLogisticaPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default void asignarOperador(int idMaquina, int idOperador)
+    {
+        asignarOperador(idMaquina, idOperador, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void asignarOperador(int idMaquina, int idOperador, java.util.Map<String, String> context)
+    {
+        _iceI_asignarOperadorAsync(idMaquina, idOperador, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> asignarOperadorAsync(int idMaquina, int idOperador)
+    {
+        return _iceI_asignarOperadorAsync(idMaquina, idOperador, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> asignarOperadorAsync(int idMaquina, int idOperador, java.util.Map<String, String> context)
+    {
+        return _iceI_asignarOperadorAsync(idMaquina, idOperador, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_idMaquina -
+     * @param iceP_idOperador -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_asignarOperadorAsync(int iceP_idMaquina, int iceP_idOperador, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "asignarOperador", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_idMaquina);
+                     ostr.writeInt(iceP_idOperador);
+                 }, null);
+        return f;
+    }
+
+    default java.util.List<servicios.alarma.AlarmaLogistica> obtenerAlarmas()
+    {
+        return obtenerAlarmas(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default java.util.List<servicios.alarma.AlarmaLogistica> obtenerAlarmas(java.util.Map<String, String> context)
+    {
+        return _iceI_obtenerAlarmasAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.util.List<servicios.alarma.AlarmaLogistica>> obtenerAlarmasAsync()
+    {
+        return _iceI_obtenerAlarmasAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.util.List<servicios.alarma.AlarmaLogistica>> obtenerAlarmasAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_obtenerAlarmasAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.util.List<servicios.alarma.AlarmaLogistica>> _iceI_obtenerAlarmasAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.util.List<servicios.alarma.AlarmaLogistica>> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "obtenerAlarmas", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     java.util.List<servicios.alarma.AlarmaLogistica> ret;
+                     ret = AlarmasMapsHelper.read(istr);
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void attachServer(ServiceLogisticaPrx proxy)
+    {
+        attachServer(proxy, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void attachServer(ServiceLogisticaPrx proxy, java.util.Map<String, String> context)
+    {
+        _iceI_attachServerAsync(proxy, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> attachServerAsync(ServiceLogisticaPrx proxy)
+    {
+        return _iceI_attachServerAsync(proxy, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> attachServerAsync(ServiceLogisticaPrx proxy, java.util.Map<String, String> context)
+    {
+        return _iceI_attachServerAsync(proxy, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_proxy -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_attachServerAsync(ServiceLogisticaPrx iceP_proxy, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "attachServer", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeProxy(iceP_proxy);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

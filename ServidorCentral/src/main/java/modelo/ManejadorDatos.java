@@ -1,5 +1,7 @@
 package modelo;
 
+import servicios.alarma.AlarmaLogistica;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,11 +9,43 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ManejadorDatos {
 
 	private Connection conexion;
+
+	public List<AlarmaLogistica> obtenerAlarmas(){
+		try {
+			System.out.println("Consultando Alarmas");
+			String queryAsign = "SELECT * FROM ALARMA_MAQUINA";
+			PreparedStatement pst = conexion.prepareStatement(queryAsign);
+			pst.executeQuery();
+			ResultSet rs = pst.getResultSet();
+
+			List<AlarmaLogistica> alarmas = new ArrayList<>();
+
+			while (rs.next()) {
+				AlarmaLogistica alarma = new AlarmaLogistica();
+				alarma.idAlarma = rs.getInt("ID_ALARMA");
+				alarma.idMaquina = rs.getInt("ID_MAQUINA");
+				alarma.fechaInicial = rs.getDate("FECHA_INICIAL");
+				alarma.fechaFinal = rs.getDate("FECHA_FINAL");
+				alarma.consecutivo = rs.getInt("CONSECUTIVO");
+
+				alarmas.add(alarma);
+			}
+
+			return alarmas;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	/**
 	 * <b>Descripción:</b>Este método crea una nueva alarma en el sistema <br>

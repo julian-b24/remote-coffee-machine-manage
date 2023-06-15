@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.zeroc.Ice.Current;
 
+import comunicacion.ControlComLogistica;
 import lombok.Setter;
 import servicios.*;
 
@@ -19,16 +20,19 @@ public class AlarmaGenerator implements AlarmaService {
 
     private AlarmasManager manager;
     private BrokerServicePrx brokerServicePrx;
+    private ControlComLogistica controlComLogistica;
 
-    public AlarmaGenerator(AlarmasManager manager, BrokerServicePrx brokerServicePrx) {
+    public AlarmaGenerator(AlarmasManager manager, BrokerServicePrx brokerServicePrx, ControlComLogistica controlComLogistica) {
         this.manager = manager;
         this.brokerServicePrx = brokerServicePrx;
+        this.controlComLogistica = controlComLogistica;
     }
 
     @Override
     public void recibirNotificacionEscasezIngredientes(String iDing, int idMaq, String uuidACK, ReliableMessageAlarmaServicePrx proxy, Current current) {
         manager.alarmaMaquina(ALARMA_INGREDIENTE, idMaq, new Date());
         proxy.sendACK(uuidACK);
+        controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
     }
 
     @Override
@@ -37,14 +41,17 @@ public class AlarmaGenerator implements AlarmaService {
             case CIEN:
                 manager.alarmaMaquina(ALARMA_MONEDA_CIEN, idMaq, new Date());
                 proxy.sendACK(uuidACK);
+                controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
                 break;
             case DOCIENTOS:
                 manager.alarmaMaquina(ALARMA_MONEDA_DOS, idMaq, new Date());
                 proxy.sendACK(uuidACK);
+                controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
                 break;
             case QUINIENTOS:
                 manager.alarmaMaquina(ALARMA_MONEDA_QUI, idMaq, new Date());
                 proxy.sendACK(uuidACK);
+                controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
                 break;
             default:
                 break;
@@ -56,6 +63,7 @@ public class AlarmaGenerator implements AlarmaService {
         // suministro
         manager.alarmaMaquina(ALARMA_SUMINISTRO, idMaq, new Date());
         proxy.sendACK(uuidACK);
+        controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
     }
 
     @Override
@@ -63,12 +71,14 @@ public class AlarmaGenerator implements AlarmaService {
         // TODO validar el insumo
         manager.desactivarAlarma(ALARMA_INGREDIENTE, idMaq, new Date());
         proxy.sendACK(uuidACK);
+        controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
     }
 
     @Override
     public void recibirNotificacionMalFuncionamiento(int idMaq, String descri, String uuidACK, ReliableMessageAlarmaServicePrx proxy, Current current) {
         manager.alarmaMaquina(ALARMA_MAL_FUNCIONAMIENTO, idMaq, new Date());
         proxy.sendACK(uuidACK);
+        controlComLogistica.getServiceLogisticaPrx().notificarNuevaAlarma();
     }
 
     public void subscribeToBroker(AlarmaServicePrx server){

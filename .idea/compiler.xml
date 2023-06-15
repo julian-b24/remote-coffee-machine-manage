@@ -8,6 +8,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.20/18bcea7d5df4d49227b4a0743a536208ce4825bb/lombok-1.18.20.jar" />
         </processorPath>
         <module name="coffemach.Broker.main" />
+        <module name="coffemach.cmLogistics.main" />
         <module name="coffemach.ReliableMessage.main" />
         <module name="coffemach.ServidorCentral.main" />
         <module name="coffemach.coffeeMach.main" />

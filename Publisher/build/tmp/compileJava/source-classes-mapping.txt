@@ -8,6 +8,8 @@ servicios/_AlarmaServicePrxI.java
  servicios._AlarmaServicePrxI
 servicios/_ServicioComLogisticaPrxI.java
  servicios._ServicioComLogisticaPrxI
+servicios/AlarmasMapsHelper.java
+ servicios.AlarmasMapsHelper
 servicios/_VentaServicePrxI.java
  servicios._VentaServicePrxI
 controller/PublisherController.java
@@ -20,10 +22,14 @@ servicios/ServicioAbastecimientoPrx.java
 servicios/VentaService.java
  servicios.VentaService
  servicios.VentaService$1
+servicios/alarma/AlarmaLogistica.java
+ servicios.alarma.AlarmaLogistica
 servicios/_RecetaServicePrxI.java
  servicios._RecetaServicePrxI
 servicios/Moneda.java
  servicios.Moneda
+servicios/ServiceLogisticaPrx.java
+ servicios.ServiceLogisticaPrx
 receta/RecetasStorage.java
  receta.RecetasStorage
 servicios/ServicioComLogistica.java
@@ -36,6 +42,8 @@ servicios/AlarmaServicePrx.java
 servicios/RecetaService.java
  servicios.RecetaService
  servicios.RecetaService$1
+servicios/_ServiceLogisticaPrxI.java
+ servicios._ServiceLogisticaPrxI
 servicios/PublisherServicePrx.java
  servicios.PublisherServicePrx
 servicios/_PublisherServicePrxI.java
@@ -58,6 +66,9 @@ servicios/ReliableMessageAlarmaServicePrx.java
  servicios.ReliableMessageAlarmaServicePrx
 servicios/_SubscriberServicePrxI.java
  servicios._SubscriberServicePrxI
+servicios/ServiceLogistica.java
+ servicios.ServiceLogistica
+ servicios.ServiceLogistica$1
 receta/Receta.java
  receta.Receta
 servicios/StringSeqHelper.java

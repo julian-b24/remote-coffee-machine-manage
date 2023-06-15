@@ -7,21 +7,38 @@ module servicios{
     ["java:serializable:java.util.Date"]
     sequence<byte> Date;
 
-    ["java:serializable:receta.Receta"]
-    sequence<byte> Receta;
+    module alarma{
+      class AlarmaLogistica{
+        int idAlarma;
+        int idMaquina;
+        Date fechaInicial;
+        Date fechaFinal;
+        int consecutivo;
+      }
+    }
 
-    ["java:serializable:ingrediente.Ingrediente"]
-    sequence<byte> Ingrediente;
+    ["java:serializable:servicios.alarma.AlarmaLogistica"]
+    sequence<byte> AlarmaL;
+
+    ["java:type:java.util.ArrayList<servicios.alarma.AlarmaLogistica>"]
+    sequence<AlarmaL> AlarmasMaps;
 
     dictionary<string,int> MapStrInt;
 
 
+    interface ServiceLogistica{
+      void notificarNuevaAlarma();
+    }
+
     interface ServicioComLogistica{
 
-      StringSeq asignacionMaquina(int codigoOperador);
-	    StringSeq asignacionMaquinasDesabastecidas(int codigoOperador);
-	    bool inicioSesion(int codigoOperador, string password);
-    }
+          StringSeq asignacionMaquina(int codigoOperador);
+    	    StringSeq asignacionMaquinasDesabastecidas(int codigoOperador);
+    	    bool inicioSesion(int codigoOperador, string password);
+    	    void asignarOperador(int idMaquina, int idOperador);
+    	    AlarmasMaps obtenerAlarmas();
+    	    void attachServer(ServiceLogistica* proxy);
+        }
 
     interface ServicioAbastecimiento {
 	   void abastecer(int codMaquina, int tipoAlarma);

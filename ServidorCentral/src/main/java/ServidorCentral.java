@@ -24,9 +24,9 @@ public class ServidorCentral {
 
             ServerControl control = new ServerControl(communicator);
 
-            ServicioComLogistica log = new ControlComLogistica(control);
+            ControlComLogistica log = new ControlComLogistica(control);
 
-            AlarmaGenerator alarma = new AlarmaGenerator(new AlarmasManager(communicator), brokerServicePrx);
+            AlarmaGenerator alarma = new AlarmaGenerator(new AlarmasManager(communicator), brokerServicePrx, log);
 
             ProductoReceta recetas = new ProductoReceta();
             recetas.setCommunicator(communicator);
